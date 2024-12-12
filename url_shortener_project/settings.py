@@ -44,6 +44,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -85,18 +86,39 @@ WSGI_APPLICATION = 'url_shortener_project.wsgi.application'
 
 
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'shortener',
-        'USER': 'beatrice',
-        'PASSWORD': 'Ivy01234@',
-        'HOST': 'localhost',  # This refers to the service name in docker-compose
-        'PORT': '5434',
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'shortener',
+#         'USER': 'beatrice',
+#         'PASSWORD': 'Ivy01234@',
+#         'HOST': 'localhost',  # This refers to the service name in docker-compose
+#         'PORT': '5434',
+#     }
+# }
+
+# DATABASES = {
+#     'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
+# }
+is_production = os.environ.get('PRODUCTION', 'False') == 'True'
+
+if is_production:
+    # Use Heroku database configuration
+    DATABASES = {
+        'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
     }
-}
-
-
+else:
+    # Use local PostgreSQL database configuration
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'shortener',
+            'USER': 'beatrice',
+            'PASSWORD': 'Ivy01234@',
+            'HOST': 'localhost',  # This refers to the service name in docker-compose
+            'PORT': '5434',
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
