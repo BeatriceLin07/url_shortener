@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-me(b)*ero-98y_3hkx#*i_o&!sbursw@q5uxl(r1_ej!@yllsk'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -86,10 +86,14 @@ WSGI_APPLICATION = 'url_shortener_project.wsgi.application'
 
 
 DATABASES = {
-    'default': dj_database_url.config(
-        default='sqlite:///db.sqlite3',  # Fallback to SQLite for local development
-        conn_max_age=600,  # Persistent connection for production
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'shortener',
+        'USER': 'beatrice',
+        'PASSWORD': 'Ivy01234@',
+        'HOST': 'localhost',  # This refers to the service name in docker-compose
+        'PORT': '5434',
+    }
 }
 
 
