@@ -6,7 +6,7 @@ from .utils import generate_short_code
 def shorten_url(request):
     if request.method == 'POST':
         long_url = request.POST.get('long_url')
-        existing_url = URL.objects.filter(long_url=long_url)
+        existing_url = URL.objects.filter(long_url=long_url).first()
         if existing_url:
             short_code = existing_url.short_code 
         else:
