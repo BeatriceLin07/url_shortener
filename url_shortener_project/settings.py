@@ -100,13 +100,11 @@ WSGI_APPLICATION = 'url_shortener_project.wsgi.application'
 # DATABASES = {
 #     'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
 # }
-is_production = os.environ.get('PRODUCTION', 'False') == 'True'
+db_from_env = dj_database_url.config(conn_max_age=600)
 
-if is_production:
+if db_from_env == True:
     # Use Heroku database configuration
-    DATABASES = {
-        'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
-    }
+    DATABASES['default'].update(db_from_env)
 else:
     # Use local PostgreSQL database configuration
     DATABASES = {
@@ -119,6 +117,7 @@ else:
             'PORT': '5434',
         }
     }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
