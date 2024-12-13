@@ -6,8 +6,12 @@
        <title>Short URL Result</title>
    </head>
    <body>
-       <h1>Your Short URL</h1>
-       <p>Short Code: {{ short_code }}</p>
-       <a href="/">Shorten another URL</a>
-   </body>
+    <h1>Your Short URL</h1>
+    {{ edit_1 }} <!-- Update to display the full short URL as a clickable link -->
+    <p>
+        Short URL: <a href="https://beatricecancode.com/{{ short_code }}">beatricecancode.com/{{ short_code }}</a>
+    </p>
+    {{ edit_2 }} <!-- Unchanged code -->
+    <a href="/">Shorten another URL</a>
+</body>
    </html>
