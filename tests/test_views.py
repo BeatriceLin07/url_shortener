@@ -10,6 +10,7 @@ def create_url():
 @pytest.mark.django_db
 def test_shorten_url_create(client):
     response = client.post(reverse('shorten_url'), {'long_url': 'https://www.google.com'})
+    
     assert response.status_code == 200
     assert 'short_code' in response.context
 
